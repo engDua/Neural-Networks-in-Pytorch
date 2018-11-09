@@ -1,4 +1,4 @@
-# Internship-work
+# Steps for data preparation, packing, pdding
 
 DATA LOADER
 
