@@ -1,4 +1,4 @@
-# Steps for data preparation, packing, pdding
+# Steps for data preparation, packing, padding
 
 DATA LOADER
 
