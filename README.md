@@ -1,4 +1,4 @@
-# Internship-work
+# Steps for data loading, packing and padding
 
 DATA LOADER
 
