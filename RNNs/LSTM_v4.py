@@ -65,7 +65,8 @@ for file in files:
         x_valid = numpy.loadtxt(file)
         X_valid.append(x_valid)
         valid_files.append(file)
-
+        g.write(file.split('.')[0] + '\n')
+         
 valid_output_folder ='/home/siri/Documents/Projects/NUS_projects/vc_arctic_data/warped_feats/slt_bdl/valid_output/'  ### valid output folder
 os.chdir(valid_output_folder)
 files = sorted(os.listdir('.'))
