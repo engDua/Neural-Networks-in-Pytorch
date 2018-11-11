@@ -46,6 +46,7 @@ for file in files:
      if '9' in file:
       x_valid = numpy.loadtxt(file)
       X_test.append(x_valid)
+      valid_files.append(file)
 
       g.write(file.split('.')[0] + '\n')
 
@@ -68,7 +69,6 @@ for gfile in gfiles:
    if '9' in gfile:
     y_valid = numpy.loadtxt(gfile)
     Y_test.append(y_valid)
-    valid_files.append(gfile)
 
    else:
      y_train = numpy.loadtxt(gfile)
