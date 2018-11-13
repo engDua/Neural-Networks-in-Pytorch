@@ -173,11 +173,13 @@ loss_fn = torch.nn.MSELoss(size_average=False)
 
 #learning_rate = 1e-4
 
-enc_model = LSTMenc(hidden, 3, 60, 10) ######hidden_dim, hidden_layers, input_size, output_size)
-dec_model= LSTMdec(hidden, 3, 10, 60)
+#enc_model = LSTMenc(hidden, 3, 60, 10) ######hidden_dim, hidden_layers, input_size, output_size)
+#dec_model= LSTMdec(hidden, 3, 10, 60)
+encdec = EncDec(enc_model, dec_model)
+optimizer = optim.Adagrad(encdec.parameters(), lr=0.01, lr_decay=0, weight_decay=0)
 #optimizer = optim.Adam(model.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08)
-enc_optimizer = optim.Adagrad(enc_model.parameters(), lr=0.01, lr_decay=0, weight_decay=0)
-dec_optimizer = optim.Adagrad(dec_model.parameters(), lr=0.01, lr_decay=0, weight_decay=0)
+#enc_optimizer = optim.Adagrad(enc_model.parameters(), lr=0.01, lr_decay=0, weight_decay=0)
+#dec_optimizer = optim.Adagrad(dec_model.parameters(), lr=0.01, lr_decay=0, weight_decay=0)
 #optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate, momentum= 0.9)
 
 for i in range(0,30):
@@ -191,11 +193,11 @@ for i in range(0,30):
     in_batch, output, lengths = sort_batch(in_batch, output, lengths)
     for j in range(0,len(lengths)):
       new_lengths.append(lengths[j])
-    bottleneck = enc_model(autograd.Variable(in_batch, requires_grad=True), new_lengths)
+    pred = encdec(autograd.Variable(in_batch, requires_grad=True), new_lengths)
  #   print("intermediate feats are:", numpy.shape(bottleneck), numpy.shape(bottleneck[0]), numpy.shape(bottleneck[1]))
 
 
-    pred = dec_model(bottleneck)
+    #pred = dec_model(bottleneck)
  #   print("predictions are:", numpy.shape(pred))
 
     pack = torch.nn.utils.rnn.pack_padded_sequence(autograd.Variable(output), new_lengths, batch_first=True)
@@ -203,11 +205,11 @@ for i in range(0,30):
  #   print("output data is of shape:", numpy.shape(unpacked))
 
 
-    dec_loss = loss_fn(pred, unpacked)
-    total_loss += dec_loss.data[0]
-    dec_optimizer.zero_grad()
-    dec_loss.backward()
-    dec_optimizer.step()
+    loss = loss_fn(pred, unpacked)
+    total_loss += loss.data[0]
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
   print("epoch:", i, "loss is:", total_loss/4) # divided by no. of examples, batch_size here
 
 '''
