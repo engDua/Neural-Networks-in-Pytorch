@@ -173,8 +173,8 @@ loss_fn = torch.nn.MSELoss(size_average=False)
 
 #learning_rate = 1e-4
 
-#enc_model = LSTMenc(hidden, 3, 60, 10) ######hidden_dim, hidden_layers, input_size, output_size)
-#dec_model= LSTMdec(hidden, 3, 10, 60)
+enc_model = LSTMenc(hidden, 3, 60, 10) ######hidden_dim, hidden_layers, input_size, output_size)
+dec_model= LSTMdec(hidden, 3, 10, 60)
 encdec = EncDec(enc_model, dec_model)
 optimizer = optim.Adagrad(encdec.parameters(), lr=0.01, lr_decay=0, weight_decay=0)
 #optimizer = optim.Adam(model.parameters(), lr=0.001, betas=(0.9, 0.999), eps=1e-08)
