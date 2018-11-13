@@ -1,5 +1,5 @@
 
-####################### SKeleton LSTM ######################
+####################### SKeleton Encoder Decoder LSTM ######################
 
 import os
 import numpy
