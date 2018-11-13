@@ -120,6 +120,14 @@ class LSTMdec(nn.Module):
       final_out = (self.hidden2out((output)))
       return final_out
 
+class EncDec(nn.Module):
+
+    def __init__(self, encoder, decoder):
+          self.encoder = encoder
+          self.decoder = decoder
+    def forward(self,batch_in, lengths):
+         bottleneck = self.encoder(   batch_in, lengths )
+         return self.decoder(bottleneck)
 
 def pad_seq(sequence):
 
