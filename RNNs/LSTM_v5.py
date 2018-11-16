@@ -1,5 +1,5 @@
 
-####################### LSTM ######################
+####################### Need to modify the batch norm ######################
 
 import os
 import numpy
